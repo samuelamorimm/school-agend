@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
   'escola',
   'corsheaders',
-  'rest_framework'
+  'rest_framework',
   'rest_framework.authtoken',
 ]
 
