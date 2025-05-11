@@ -34,7 +34,7 @@ class CustomUser(AbstractUser):
 
   name = models.CharField(max_length=200, blank=False) 
   phone = models.CharField(max_length=11, blank=False)
-  occupation = models.CharField(max_length=3, choices=OCUPPATION_CHOICES, default='PRO', blank=False)
+  occupation = models.CharField(max_length=3, choices=OCUPPATION_CHOICES, default='ADM', blank=False)
 
   objects = UserManager()
 

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import CustomUser, Meeting, Classroom
 
-class ProfessorRegisterSerializer(serializers.ModelSerializer):
+class RegisterProfessorSerializer(serializers.ModelSerializer):
   password = serializers.CharField(write_only=True)
 
   class Meta:
@@ -11,15 +11,15 @@ class ProfessorRegisterSerializer(serializers.ModelSerializer):
   def create(self, validated_data):
     user = CustomUser.objects.create_user(
       username=validated_data['username'],
-      email=validated_data.get('email', ''),
+      email=validated_data.get('email', ' '), #opcional
       password=validated_data['password'],
-      name = validated_data['name'],
-      phone = validated_data['phone'],
-      ocupation = validated_data['ocuppation'],
+      name=validated_data['name'],
+      phone=validated_data['phone'],
+      occupation='PRO',
     )
     return user
   
-class AdmRegisterSerializer(serializers.ModelSerializer):
+class RegisterAdmSerializer(serializers.ModelSerializer):
   password = serializers.CharField(write_only=True)
 
   class Meta:
@@ -31,9 +31,9 @@ class AdmRegisterSerializer(serializers.ModelSerializer):
       username=validated_data['username'],
       email=validated_data.get('email', ''),
       password=validated_data['password'],
-      name = validated_data['name'],
-      phone = validated_data['phone'],
-      ocupation = validated_data['ocuppation'],
+      name=validated_data['name'],
+      phone=validated_data['phone'],
+      occupation='ADM',
     )
     return user
   
