@@ -1,7 +1,7 @@
 from rest_framework.authtoken.models import Token
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework.viewsets import ViewSet
+from rest_framework import viewsets
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework import status
 from rest_framework.response import Response
@@ -64,5 +64,43 @@ class RegisterProfessorView(APIView): #View para registro de professores
       "msg": "Erro ao criar usuário",
     }, status=status.HTTP_400_BAD_REQUEST)
   
+class MeetingViewSet(viewsets.ModelViewSet): #Crud nas agendas
+  queryset = Meeting.objects.all()
+  serializer_class = MeetingSerializer
+  permission_classes = [IsAuthenticated]
+
+class MeetingProfessorViewSet(viewsets.ModelViewSet): #Post de reunião passando automaticamente o professor
+  queryset = Meeting.objects.all()
+  serializer_class = MeetingSerializer
+  permission_classes = [IsAuthenticated]
+
+  def perform_create(self, serializer):
+    serializer.save(professor=self.request.user) #definindo o professor automaticamente se ele for o criador da mesma.
+
+class ClassroomViewSet(viewsets.ModelViewSet): #CRUD de turmas
+  queryset = Classroom.objects.all()
+  serializer_class = ClassroomSerializer
+  permission_classes = [IsAuthenticated]
+
+
+class ListProfessorsViewSet(viewsets.ModelViewSet): #view para retornar todos os professores
+  permission_classes = [IsAuthenticated]
+  queryset = CustomUser.objects.all()
+  serializer_class = RegisterProfessorSerializer
+
+  def get_queryset(self):
+    queryset = CustomUser.objects.filter(occupation='PRO')
+    return queryset
+  
+class ListAdmsViewSet(viewsets.ModelViewSet): #view para retornar todos os adms
+  permission_classes = [IsAuthenticated]
+  queryset = CustomUser.objects.all()
+  serializer_class = RegisterProfessorSerializer
+
+  def get_queryset(self):
+    queryset = CustomUser.objects.filter(occupation='ADM')
+    return queryset
+
+
   
 

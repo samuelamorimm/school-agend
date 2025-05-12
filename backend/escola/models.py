@@ -60,5 +60,5 @@ class Meeting(models.Model):
   start_time = models.DateTimeField(blank=False)
   end_time = models.DateTimeField(blank=False)
   created_at = models.DateTimeField(auto_now_add=True)
-  status = models.CharField(max_length=1, default='I', choices=STATUS_CHOICES ,blank=False)
+  status = models.CharField(max_length=1, default='I', choices=STATUS_CHOICES)
 

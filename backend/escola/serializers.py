@@ -40,6 +40,7 @@ class RegisterAdmSerializer(serializers.ModelSerializer):
 # registro de usuarios professor/adm acima =====================
 
 class MeetingSerializer(serializers.ModelSerializer):
+  professor_name = serializers.CharField(source='professor.name', read_only=True)
   class Meta:
     model = Meeting
     fields = '__all__'
