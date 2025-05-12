@@ -11,7 +11,7 @@ class RegisterProfessorSerializer(serializers.ModelSerializer):
   def create(self, validated_data):
     user = CustomUser.objects.create_user(
       username=validated_data['username'],
-      email=validated_data.get('email', ' '), #opcional
+      email=validated_data.get('email', ''), #opcional
       password=validated_data['password'],
       name=validated_data['name'],
       phone=validated_data['phone'],
